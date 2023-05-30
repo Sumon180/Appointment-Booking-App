@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 // Initialize Firebase Admin SDK
-const serviceAccount = require("./serviceAccountKey.json"); // Path to your Firebase service account key
+const serviceAccount = require("../serviceAccountKey.json"); // Path to your Firebase service account key
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://bookingapp-4d565.firebaseio.com", // Replace with your Firebase project URL
