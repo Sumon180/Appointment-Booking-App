@@ -2,6 +2,18 @@ import axios from "axios";
 
 const API_BASE_URL = "http://localhost:3001";
 
+interface Doctor {
+  id: number;
+  name: string;
+  specialty: string;
+}
+
+interface Appointment {
+  doctor: Doctor;
+  name: string;
+  date: string;
+}
+
 export const getAppointments = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/appointments`);
@@ -11,11 +23,7 @@ export const getAppointments = async () => {
   }
 };
 
-export const createAppointment = async (data: {
-  doctor: doctor.name;
-  name: string;
-  date: string;
-}) => {
+export const createAppointment = async (data: Appointment) => {
   try {
     await axios.post(`${API_BASE_URL}/appointments`, data);
   } catch (error) {

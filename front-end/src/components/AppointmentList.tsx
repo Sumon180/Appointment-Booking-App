@@ -1,8 +1,15 @@
 import React from 'react';
 
+interface Doctor {
+    id: number;
+    name: string;
+    specialty: string;
+}
+
 interface Appointment {
-    id: string;
-    title: string;
+    doctor: Doctor;
+    name: string;
+    date: string;
 }
 
 interface Props {
@@ -12,11 +19,13 @@ interface Props {
 const AppointmentList: React.FC<Props> = ({ appointments }) => {
     return (
         <div>
-            <h2 className='text-2xl'>Appointment List</h2>
+            <h2 className="text-2xl">Appointment List</h2>
             {appointments.length > 0 ? (
                 <ul>
                     {appointments.map((appointment) => (
-                        <li key={appointment.id}>{appointment.title}</li>
+                        <li key={appointment.date}>
+                            {appointment.doctor.name} - {appointment.name} on {appointment.date}
+                        </li>
                     ))}
                 </ul>
             ) : (
@@ -24,6 +33,6 @@ const AppointmentList: React.FC<Props> = ({ appointments }) => {
             )}
         </div>
     );
-}
+};
 
 export default AppointmentList;

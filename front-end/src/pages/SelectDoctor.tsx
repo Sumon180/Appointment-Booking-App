@@ -3,6 +3,7 @@ import { createAppointment, getAppointments } from '../services/api';
 import DoctorCard from '../components/DoctorCard';
 import AppointmentForm from '../components/AppointmentForm';
 import { motion } from "framer-motion"
+import AppointmentList from '../components/AppointmentList';
 
 interface Doctor {
     id: number;
@@ -20,19 +21,9 @@ const SelectDoctor: FC = () => {
     const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
     const [appointments, setAppointments] = useState<Appointment[]>([]);
 
-
-    const doctors: Doctor[] = [
-        { id: 1, name: 'Dr. John Doe', specialty: 'Cardiology' },
-        { id: 2, name: 'Dr. Jane Smith', specialty: 'Dermatology' },
-        { id: 3, name: 'Dr. Alex Johnson', specialty: 'Pediatrics' },
-        { id: 3, name: 'Dr. Sumon Hossain', specialty: 'Medicin' },
-    ];
-
     const handleBookAppointment = (doctor: Doctor) => {
         setSelectedDoctor(doctor);
     };
-
-
 
     const handleAppointmentSubmit = async (appointment: Appointment) => {
         try {
@@ -59,6 +50,16 @@ const SelectDoctor: FC = () => {
     useEffect(() => {
         fetchAppointments();
     }, []);
+
+
+    const doctors: Doctor[] = [
+        { id: 1, name: 'Dr. John Doe', specialty: 'Cardiology' },
+        { id: 2, name: 'Dr. Jane Smith', specialty: 'Dermatology' },
+        { id: 3, name: 'Dr. Alex Johnson', specialty: 'Pediatrics' },
+        { id: 3, name: 'Dr. Sumon Hossain', specialty: 'Medicin' },
+    ];
+
+
 
     return (
         <motion.div
@@ -89,14 +90,7 @@ const SelectDoctor: FC = () => {
                 </div>
             )}
             <h2 className="text-xl font-bold mt-4">Appointments:</h2>
-            <ul>
-                {appointments.map((appointment, index) => (
-                    <li key={index}>
-                        <strong>{appointment.doctor.name}</strong> - {appointment.name} on{' '}
-                        {appointment.date}
-                    </li>
-                ))}
-            </ul>
+            <AppointmentList appointments={appointments} />
         </motion.div>
     );
 };
