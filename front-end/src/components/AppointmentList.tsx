@@ -6,6 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Doctor {
     id: number;
@@ -23,29 +24,11 @@ interface Props {
     appointments: Appointment[];
 }
 
-function createData(
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
-) {
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
 
 const AppointmentList: React.FC<Props> = ({ appointments }) => {
     return (
         <div>
-            <h2 className="text-2xl">Appointment List</h2>
+            <h2 className="text-3xl mb-5">Appointment List</h2>
             {appointments.length > 0 ? (
                 <ul>
                     <TableContainer component={Paper}>
@@ -53,14 +36,14 @@ const AppointmentList: React.FC<Props> = ({ appointments }) => {
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Doctor Name</TableCell>
-                                    <TableCell align="right">Patient name</TableCell>
+                                    <TableCell align="right">Patient Name</TableCell>
                                     <TableCell align="right">Date</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {appointments.map((appointment) => (
                                     <TableRow
-                                        key={appointment.date}
+                                        key={uuidv4()}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
                                         <TableCell component="th" scope="row">
@@ -68,7 +51,6 @@ const AppointmentList: React.FC<Props> = ({ appointments }) => {
                                         </TableCell>
                                         <TableCell align="right">{appointment.name}</TableCell>
                                         <TableCell align="right">{appointment.date}</TableCell>
-
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -76,7 +58,7 @@ const AppointmentList: React.FC<Props> = ({ appointments }) => {
                     </TableContainer>
                 </ul>
             ) : (
-                <p>No appointments available.</p>
+                <p className='text-center text-red-500'>No appointments available.</p>
             )}
         </div>
     );
