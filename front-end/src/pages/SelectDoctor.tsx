@@ -56,7 +56,7 @@ const SelectDoctor: FC = () => {
         { id: 1, name: 'Dr. John Doe', specialty: 'Cardiology' },
         { id: 2, name: 'Dr. Jane Smith', specialty: 'Dermatology' },
         { id: 3, name: 'Dr. Alex Johnson', specialty: 'Pediatrics' },
-        { id: 3, name: 'Dr. Sumon Hossain', specialty: 'Medicin' },
+        { id: 4, name: 'Dr. Sumon Hossain', specialty: 'Medicin' },
     ];
 
 

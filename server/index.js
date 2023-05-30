@@ -1,20 +1,18 @@
 const express = require("express");
-const cors = require("cors");
 const admin = require("firebase-admin");
+const cors = require("cors");
 require("dotenv").config();
 
+// Initialize Express app
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 // Initialize Firebase Admin SDK
-const serviceAccount = {
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
-  clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-};
+const serviceAccount = require("./serviceAccountKey.json"); // Path to your Firebase service account key
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://bookingapp-4d565.firebaseio.com", // Replace with your Firebase project URL
 });
 
 // Firebase Firestore instance
@@ -23,43 +21,35 @@ const db = admin.firestore();
 // Routes
 app.get("/appointments", async (req, res) => {
   try {
-    const appointmentsRef = db.collection("appointments");
-    const snapshot = await appointmentsRef.get();
-    const appointments = [];
-    snapshot.forEach((doc) => {
-      const appointment = {
-        id: doc.id,
-        name: doc.data().title,
-        doctor: doc.data().doctor,
-        date: doc.data().date,
-      };
-      appointments.push(appointment);
-    });
+    const snapshot = await db.collection("appointments").get();
+    const appointments = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
     res.json(appointments);
   } catch (error) {
-    console.error("Error getting appointments", error);
-    res.status(500).json({ error: "Error getting appointments" });
+    console.error("Error fetching appointments:", error);
+    res.status(500).json({ error: "Failed to fetch appointments" });
   }
 });
 
 app.post("/appointments", async (req, res) => {
   try {
-    const { id } = req.body.id;
-    const { name } = req.body.name;
-    const { doctor } = req.body.doctor;
-    const { date } = req.body.date;
+    const { doctor, name, date } = req.body;
+
+    const appointment = {
+      doctor,
+      name,
+      date,
+    };
+
     if (!name && !doctor && !date) {
       return res.status(400).json({ error: "Whole field is required" });
     }
-    const appointment = {
-      id,
-      name,
-      date,
-      doctor,
-      date,
-    };
+
     const docRef = await db.collection("appointments").add(appointment);
-    res.json({ id: docRef.id });
+    const newAppointment = { id: docRef.id, ...appointment };
+    res.status(201).json(newAppointment);
   } catch (error) {
     res.status(500).json({ error: "Failed to create appointment" });
   }
@@ -68,5 +58,5 @@ app.post("/appointments", async (req, res) => {
 // Start the server
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port http://localhost:${port}`);
 });
