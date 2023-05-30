@@ -67,8 +67,8 @@ const SelectDoctor: FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 2 }}
-            className="container mx-auto flex flex-col items-center justify-center gap-16 w-screen h-screen'">
-            <h1 className="text-3xl font-bold">Doctor Booking Appointment App</h1>
+            className="container mx-auto flex flex-col items-center justify-center h-screen gap-16 w-screen">
+            <h1 className="text-5xl font-bold text-slate-800">Doctor Booking Appointment</h1>
             {selectedDoctor ? (
                 <AppointmentForm
                     doctor={selectedDoctor}
@@ -77,7 +77,7 @@ const SelectDoctor: FC = () => {
                 />
             ) : (
                 <div className="doctor-list p-10 bg-white border drop-shadow-lg">
-                    <h2 className="text-2xl font-semi-bold mb-3">Choose a doctor:</h2>
+                    <h2 className="text-2xl font-semi-bold mb-3 text-slate-700">Choose a doctor:</h2>
                     <div className='flex flex-wrap items-center gap-3'>
                         {doctors.map((doctor) => (
                             <DoctorCard
@@ -89,7 +89,6 @@ const SelectDoctor: FC = () => {
                     </div>
                 </div>
             )}
-            <h2 className="text-xl font-bold mt-4">Appointments:</h2>
             <AppointmentList appointments={appointments} />
         </motion.div>
     );
