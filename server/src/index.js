@@ -43,14 +43,12 @@ app.post("/appointments", async (req, res) => {
       date,
     };
 
-    if (!name && !doctor && !date) {
-      return res.status(400).json({ error: "Whole field is required" });
-    }
-
     const docRef = await db.collection("appointments").add(appointment);
     const newAppointment = { id: docRef.id, ...appointment };
+
     res.status(201).json(newAppointment);
   } catch (error) {
+    console.error("Error creating appointment:", error);
     res.status(500).json({ error: "Failed to create appointment" });
   }
 });
