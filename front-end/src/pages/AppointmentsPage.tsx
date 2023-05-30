@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import AppointmentList from '../components/AppointmentList';
-import AppointmentForm from '../components/AppointmentForm';
 import { getAppointments } from '../services/api';
 
 const AppointmentsPage = () => {
@@ -20,10 +19,9 @@ const AppointmentsPage = () => {
     };
 
     return (
-        <div className='flex flex-col items-center justify-center gap-16 w-screen h-screen'>
+        <div>
             <h1 className='text-5xl'>Appointments</h1>
             <AppointmentList appointments={appointments} />
-            <AppointmentForm fetchAppointments={fetchAppointments} />
         </div>
     );
 }

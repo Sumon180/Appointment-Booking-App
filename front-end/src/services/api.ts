@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "<YOUR_API_BASE_URL>";
+const API_BASE_URL = "http://localhost:3001";
 
 export const getAppointments = async () => {
   try {
@@ -11,7 +11,11 @@ export const getAppointments = async () => {
   }
 };
 
-export const createAppointment = async (data: { title: string }) => {
+export const createAppointment = async (data: {
+  doctor: doctor.name;
+  name: string;
+  date: string;
+}) => {
   try {
     await axios.post(`${API_BASE_URL}/appointments`, data);
   } catch (error) {

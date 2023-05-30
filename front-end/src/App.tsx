@@ -1,13 +1,13 @@
 import { BrowserRouter, Route, Routes, } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import AppointmentsPage from './pages/AppointmentsPage';
+import SelectDoctor from './pages/SelectDoctor';
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/appointments" element={<AppointmentsPage />} />
+        <Route path="/appointments" element={<SelectDoctor />} />
       </Routes>
     </BrowserRouter>
   );

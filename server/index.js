@@ -29,7 +29,9 @@ app.get("/appointments", async (req, res) => {
     snapshot.forEach((doc) => {
       const appointment = {
         id: doc.id,
-        title: doc.data().title,
+        name: doc.data().title,
+        doctor: doc.data().doctor,
+        date: doc.data().date,
       };
       appointments.push(appointment);
     });
@@ -42,11 +44,20 @@ app.get("/appointments", async (req, res) => {
 
 app.post("/appointments", async (req, res) => {
   try {
-    const { title } = req.body;
-    if (!title) {
-      return res.status(400).json({ error: "Title is required" });
+    const { id } = req.body.id;
+    const { name } = req.body.name;
+    const { doctor } = req.body.doctor;
+    const { date } = req.body.date;
+    if (!name && !doctor && !date) {
+      return res.status(400).json({ error: "Whole field is required" });
     }
-    const appointment = { title };
+    const appointment = {
+      id,
+      name,
+      date,
+      doctor,
+      date,
+    };
     const docRef = await db.collection("appointments").add(appointment);
     res.json({ id: docRef.id });
   } catch (error) {
@@ -55,7 +66,7 @@ app.post("/appointments", async (req, res) => {
 });
 
 // Start the server
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
