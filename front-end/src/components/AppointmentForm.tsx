@@ -1,6 +1,7 @@
 import React, { useState, FC } from 'react';
 import { createAppointment } from '../services/api';
 import { motion } from "framer-motion"
+import { useNavigate } from 'react-router-dom';
 
 interface Doctor {
     id: number;
@@ -27,6 +28,7 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
 }) => {
     const [name, setName] = useState<string>('');
     const [date, setDate] = useState<string>('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -46,6 +48,9 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
             alert('Failed to book appointment');
         }
     };
+
+    const BackToHome = () => navigate('/');
+
 
     return (
         <motion.div
@@ -82,6 +87,12 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
                     className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5"
                 >
                     Submit
+                </button>
+                <button
+                    onClick={BackToHome}
+                    className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5'
+                >
+                    Back to Home Page
                 </button>
             </form>
         </motion.div>
