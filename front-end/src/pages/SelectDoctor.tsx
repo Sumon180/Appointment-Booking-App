@@ -2,6 +2,7 @@ import { useState, FC, useEffect } from 'react';
 import { createAppointment, getAppointments } from '../services/api';
 import DoctorCard from '../components/DoctorCard';
 import AppointmentForm from '../components/AppointmentForm';
+import { motion } from "framer-motion"
 
 interface Doctor {
     id: number;
@@ -60,7 +61,12 @@ const SelectDoctor: FC = () => {
     }, []);
 
     return (
-        <div className="container mx-auto flex flex-col items-center justify-center gap-16 w-screen h-screen'">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 2 }}
+            className="container mx-auto flex flex-col items-center justify-center gap-16 w-screen h-screen'">
             <h1 className="text-3xl font-bold">Doctor Booking Appointment App</h1>
             {selectedDoctor ? (
                 <AppointmentForm
@@ -91,7 +97,7 @@ const SelectDoctor: FC = () => {
                     </li>
                 ))}
             </ul>
-        </div>
+        </motion.div>
     );
 };
 

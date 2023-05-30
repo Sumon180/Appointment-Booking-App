@@ -1,5 +1,6 @@
 import React, { useState, FC } from 'react';
 import { createAppointment } from '../services/api';
+import { motion } from "framer-motion"
 
 interface Doctor {
     id: number;
@@ -47,8 +48,14 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
     };
 
     return (
-        <div>
-            <h2 className="text-2xl">Book Appointment with {doctor.name}</h2>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 2 }}
+            className='p-10 bg-white border drop-shadow-lg'
+        >
+            <h2 className="text-2xl mb-5">Book Appointment with <span className='text-blue-600 font-bold'>{doctor.name}</span></h2>
             <form onSubmit={handleSubmit} className="flex flex-col">
                 <label>
                     Your Name:<br />
@@ -77,7 +84,7 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
                     Submit
                 </button>
             </form>
-        </div>
+        </motion.div>
     );
 };
 
