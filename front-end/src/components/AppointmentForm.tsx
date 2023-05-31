@@ -1,24 +1,9 @@
 import React, { useState, FC } from 'react';
 import { motion } from "framer-motion"
 import { useNavigate } from 'react-router-dom';
+import { AppointmentFormProps } from '../types';
 
-interface Doctor {
-    id: number;
-    name: string;
-    specialty: string;
-}
 
-interface Appointment {
-    doctor: Doctor;
-    name: string;
-    date: string;
-}
-
-interface AppointmentFormProps {
-    doctor: Doctor;
-    onSubmit: (data: Appointment) => void;
-    fetchAppointments: () => void;
-}
 
 const AppointmentForm: FC<AppointmentFormProps> = ({
     doctor,

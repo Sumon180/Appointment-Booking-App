@@ -7,25 +7,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { v4 as uuidv4 } from 'uuid';
-
-interface Doctor {
-    id: number;
-    name: string;
-    specialty: string;
-}
-
-interface Appointment {
-    doctor: Doctor;
-    name: string;
-    date: string;
-}
-
-interface Props {
-    appointments: Appointment[];
-}
+import { AppointmentListProps } from '../types';
 
 
-const AppointmentList: React.FC<Props> = ({ appointments }) => {
+const AppointmentList: React.FC<AppointmentListProps> = ({ appointments }) => {
     return (
         <div>
             <h2 className="text-3xl mb-5">Appointment List</h2>

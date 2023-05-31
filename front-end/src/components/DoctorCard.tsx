@@ -1,15 +1,5 @@
 import React from 'react';
-
-interface Doctor {
-    id: number;
-    name: string;
-    specialty: string;
-}
-
-interface DoctorCardProps {
-    doctor: Doctor;
-    onBookAppointment: (doctor: Doctor) => void;
-}
+import { DoctorCardProps } from '../types';
 
 const DoctorCard: React.FC<DoctorCardProps> = ({ doctor, onBookAppointment }) => {
     return (

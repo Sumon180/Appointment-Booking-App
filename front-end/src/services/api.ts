@@ -1,18 +1,7 @@
 import axios from "axios";
+import { Appointment } from "../types";
 
 const API_BASE_URL = "http://localhost:5000";
-
-interface Doctor {
-  id: number;
-  name: string;
-  specialty: string;
-}
-
-interface Appointment {
-  doctor: Doctor;
-  name: string;
-  date: string;
-}
 
 export const getAppointments = async () => {
   try {

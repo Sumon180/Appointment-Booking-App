@@ -4,18 +4,7 @@ import DoctorCard from '../components/DoctorCard';
 import AppointmentForm from '../components/AppointmentForm';
 import { motion } from "framer-motion"
 import AppointmentList from '../components/AppointmentList';
-
-interface Doctor {
-    id: number;
-    name: string;
-    specialty: string;
-}
-
-interface Appointment {
-    doctor: Doctor;
-    name: string;
-    date: string;
-}
+import { Appointment, Doctor } from '../types';
 
 const SelectDoctor: FC = () => {
     const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
