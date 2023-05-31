@@ -1,5 +1,4 @@
 import React, { useState, FC } from 'react';
-import { createAppointment } from '../services/api';
 import { motion } from "framer-motion"
 import { useNavigate } from 'react-router-dom';
 
@@ -23,8 +22,8 @@ interface AppointmentFormProps {
 
 const AppointmentForm: FC<AppointmentFormProps> = ({
     doctor,
-    fetchAppointments,
     onSubmit,
+    fetchAppointments,
 }) => {
     const [name, setName] = useState<string>('');
     const [date, setDate] = useState<string>('');
@@ -33,16 +32,10 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            await createAppointment({
-                doctor,
-                name,
-                date,
-            });
             onSubmit({ doctor, name, date });
             setName('');
             setDate('');
             fetchAppointments();
-            alert('Booked Successfully');
         } catch (error) {
             console.error('Error creating appointment:', error);
             alert('Failed to book appointment');
