@@ -53,6 +53,55 @@ app.post("/appointments", async (req, res) => {
   }
 });
 
+// Update an appointment
+app.put("/appointments/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { doctor, name, date } = req.body;
+
+    const appointmentRef = db.collection("appointments").doc(id);
+    const snapshot = await appointmentRef.get();
+
+    if (!snapshot.exists) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
+
+    const updatedAppointment = {
+      doctor,
+      name,
+      date,
+    };
+
+    await appointmentRef.update(updatedAppointment);
+
+    res.json({ id, ...updatedAppointment });
+  } catch (error) {
+    console.error("Error updating appointment:", error);
+    res.status(500).json({ error: "Failed to update appointment" });
+  }
+});
+
+// Delete an appointment
+app.delete("/appointments/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const appointmentRef = db.collection("appointments").doc(id);
+    const snapshot = await appointmentRef.get();
+
+    if (!snapshot.exists) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
+
+    await appointmentRef.delete();
+
+    res.json({ message: "Appointment deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting appointment:", error);
+    res.status(500).json({ error: "Failed to delete appointment" });
+  }
+});
+
 // Start the server
 const port = process.env.PORT || 3001;
 app.listen(port, () => {

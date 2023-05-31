@@ -35,6 +35,18 @@ const AppointmentList: React.FC<AppointmentListProps> = ({ appointments }) => {
                                         </TableCell>
                                         <TableCell align="right">{appointment.name}</TableCell>
                                         <TableCell align="right">{appointment.date}</TableCell>
+                                        <TableCell align="right">
+                                            <button
+                                                className="ml-2 bg-blue-500 text-white px-2 py-1 rounded"
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                className="ml-2 bg-red-500 text-white px-2 py-1 rounded"
+                                            >
+                                                Delete
+                                            </button>
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
