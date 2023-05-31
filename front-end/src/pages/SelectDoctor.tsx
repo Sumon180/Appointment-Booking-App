@@ -1,8 +1,8 @@
 import { useState, FC, useEffect } from 'react';
+import { motion } from "framer-motion"
 import { createAppointment, getAppointments } from '../services/api';
 import DoctorCard from '../components/DoctorCard';
 import AppointmentForm from '../components/AppointmentForm';
-import { motion } from "framer-motion"
 import AppointmentList from '../components/AppointmentList';
 import { Appointment, Doctor } from '../types';
 
@@ -40,15 +40,12 @@ const SelectDoctor: FC = () => {
         fetchAppointments();
     }, []);
 
-
     const doctors: Doctor[] = [
         { id: 1, name: 'Dr. John Doe', specialty: 'Cardiology' },
         { id: 2, name: 'Dr. Jane Smith', specialty: 'Dermatology' },
         { id: 3, name: 'Dr. Alex Johnson', specialty: 'Pediatrics' },
         { id: 4, name: 'Dr. Sumon Hossain', specialty: 'Medicin' },
     ];
-
-
 
     return (
         <motion.div
