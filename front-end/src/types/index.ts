@@ -5,6 +5,7 @@ export interface Doctor {
 }
 
 export interface Appointment {
+  id: string;
   doctor: Doctor;
   name: string;
   date: string;
@@ -18,6 +19,8 @@ export interface AppointmentFormProps {
 
 export interface AppointmentListProps {
   appointments: Appointment[];
+  onEditAppointment: (appointment: Appointment) => void;
+  onDeleteAppointment: (id: string) => void;
 }
 
 export interface DoctorCardProps {

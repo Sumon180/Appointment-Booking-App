@@ -7,9 +7,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { AppointmentListProps } from '../types';
+import { Appointment, AppointmentListProps } from '../types';
 
-const AppointmentList: React.FC<AppointmentListProps> = ({ appointments }) => {
+const AppointmentList: React.FC<AppointmentListProps> = ({ appointments, onEditAppointment,
+    onDeleteAppointment, }) => {
+
+    const handleEditAppointment = (appointment: Appointment) => {
+        onEditAppointment(appointment);
+    };
+
+    const handleDeleteAppointment = (id: string) => {
+        onDeleteAppointment(id);
+    };
+
     return (
         <div>
             <h2 className="text-3xl mb-5">Appointment List</h2>
@@ -37,11 +47,13 @@ const AppointmentList: React.FC<AppointmentListProps> = ({ appointments }) => {
                                         <TableCell align="right">{appointment.date}</TableCell>
                                         <TableCell align="right">
                                             <button
+                                                onClick={() => handleEditAppointment(appointment)}
                                                 className="ml-2 bg-blue-500 text-white px-2 py-1 rounded"
                                             >
                                                 Edit
                                             </button>
                                             <button
+                                                onClick={() => handleDeleteAppointment(appointment.id)}
                                                 className="ml-2 bg-red-500 text-white px-2 py-1 rounded"
                                             >
                                                 Delete

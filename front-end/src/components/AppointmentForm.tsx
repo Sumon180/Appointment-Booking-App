@@ -17,7 +17,10 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            onSubmit({ doctor, name, date });
+            onSubmit({
+                doctor, name, date,
+                id: ''
+            });
             setName('');
             setDate('');
             fetchAppointments();
@@ -35,7 +38,7 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 2 }}
+            transition={{ duration: 1 }}
             className='p-10 bg-white border drop-shadow-lg'
         >
             <h2 className="text-2xl mb-5">Book Appointment with <span className='text-blue-600 font-bold'>{doctor.name}</span></h2>

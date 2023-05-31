@@ -1,6 +1,6 @@
 import { useState, FC, useEffect } from 'react';
 import { motion } from "framer-motion"
-import { createAppointment, getAppointments } from '../services/api';
+import { createAppointment, deleteAppointment, getAppointments, updateAppointment } from '../services/api';
 import DoctorCard from '../components/DoctorCard';
 import AppointmentForm from '../components/AppointmentForm';
 import AppointmentList from '../components/AppointmentList';
@@ -44,8 +44,36 @@ const SelectDoctor: FC = () => {
         { id: 1, name: 'Dr. John Doe', specialty: 'Cardiology' },
         { id: 2, name: 'Dr. Jane Smith', specialty: 'Dermatology' },
         { id: 3, name: 'Dr. Alex Johnson', specialty: 'Pediatrics' },
-        { id: 4, name: 'Dr. Sumon Hossain', specialty: 'Medicin' },
+        { id: 4, name: 'Dr. Salman dd', specialty: 'Medicin' },
     ];
+
+    const handleEditAppointment = async (appointment: Appointment) => {
+        try {
+            await updateAppointment(appointment);
+            const updatedAppointments = appointments.map((appt) =>
+                appt.id === appointment.id ? appointment : appt
+            );
+            setAppointments(updatedAppointments);
+            alert('Appointment updated successfully');
+        } catch (error) {
+            console.error('Error updating appointment:', error);
+            alert('Failed to update appointment');
+        }
+    };
+
+    const handleDeleteAppointment = async (id: string) => {
+        if (window.confirm('Are you sure you want to delete this appointment?')) {
+            try {
+                await deleteAppointment(id);
+                const updatedAppointments = appointments.filter((appt) => appt.id !== id);
+                setAppointments(updatedAppointments);
+                alert('Appointment deleted successfully');
+            } catch (error) {
+                console.error('Error deleting appointment:', error);
+                alert('Failed to delete appointment');
+            }
+        }
+    };
 
     return (
         <motion.div
@@ -75,7 +103,11 @@ const SelectDoctor: FC = () => {
                     </div>
                 </div>
             )}
-            <AppointmentList appointments={appointments} />
+            <AppointmentList
+                appointments={appointments}
+                onEditAppointment={handleEditAppointment}
+                onDeleteAppointment={handleDeleteAppointment}
+            />
         </motion.div>
     );
 };
