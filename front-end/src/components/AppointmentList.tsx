@@ -32,6 +32,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({ appointments, onEditA
                                     <TableCell>Doctor Name</TableCell>
                                     <TableCell align="right">Patient Name</TableCell>
                                     <TableCell align="right">Date</TableCell>
+                                    <TableCell align="right">Action</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
