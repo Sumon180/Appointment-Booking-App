@@ -1,23 +1,41 @@
-import React, { useState, FC } from 'react';
+import React, { useState, FC, useEffect } from 'react';
 import { motion } from "framer-motion"
 import { useNavigate } from 'react-router-dom';
 import { Appointment, AppointmentFormProps } from '../types';
-
-
+import { updateAppointment } from '../services/api';
 
 const AppointmentForm: FC<AppointmentFormProps> = ({
     doctor,
     onSubmit,
     fetchAppointments,
+    editingAppointment,
 }) => {
     const [name, setName] = useState<string>('');
     const [date, setDate] = useState<string>('');
     const [time, setTime] = useState<string>('');
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (editingAppointment) {
+            setName(editingAppointment.name);
+            setDate(editingAppointment.date);
+            setTime(editingAppointment.time); // Add time dependency
+        }
+    }, [editingAppointment]);
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
+            if (editingAppointment) {
+                await updateAppointment({
+                    ...editingAppointment,
+                    doctor,
+                    name,
+                    date,
+                    time
+                });
+                alert('Appointment updated successfully');
+            }
             const appointment: Appointment = {
                 id: '',
                 doctor,
@@ -47,7 +65,9 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
             transition={{ duration: 1 }}
             className='p-10 bg-white border drop-shadow-lg'
         >
-            <h2 className="text-2xl mb-5">Book Appointment with <span className='text-blue-600 font-bold'>{doctor.name}</span></h2>
+            <h2 className="text-2xl mb-5">
+                {editingAppointment ? 'Edit Appointment' : 'Book Appointment with'}{' '}
+                <span className='text-blue-600 font-bold'>{doctor.name}</span></h2>
             <form onSubmit={handleSubmit} className="flex flex-col">
                 <label className="text-lg font-medium text-slate-600">
                     Your Name:
@@ -85,7 +105,7 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
                     type="submit"
                     className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5"
                 >
-                    Book Appointment
+                    {editingAppointment ? 'Update' : 'Book Appointment'}
                 </button>
                 <button
                     onClick={BackToHome}

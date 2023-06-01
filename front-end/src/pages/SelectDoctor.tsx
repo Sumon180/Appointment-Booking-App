@@ -1,6 +1,6 @@
 import { useState, FC, useEffect } from 'react';
 import { motion } from "framer-motion"
-import { createAppointment, deleteAppointment, getAppointments, updateAppointment } from '../services/api';
+import { createAppointment, deleteAppointment, editAppointments, getAppointments, updateAppointment } from '../services/api';
 import DoctorCard from '../components/DoctorCard';
 import AppointmentForm from '../components/AppointmentForm';
 import AppointmentList from '../components/AppointmentList';
@@ -9,6 +9,7 @@ import { Appointment, Doctor } from '../types';
 const SelectDoctor: FC = () => {
     const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
     const [appointments, setAppointments] = useState<Appointment[]>([]);
+    const [editingAppointment, setEditingAppointment] = useState<Appointment | null>(null);
 
     const handleBookAppointment = (doctor: Doctor) => {
         setSelectedDoctor(doctor);
@@ -47,19 +48,58 @@ const SelectDoctor: FC = () => {
         { id: 4, name: 'Dr. Salman dd', specialty: 'Medicin' },
     ];
 
+
+
+
+
+
     const handleEditAppointment = async (appointment: Appointment) => {
         try {
+            const editedAppointment = await fetchAppointment(appointment.id);
+            setEditingAppointment(editedAppointment);
+            // You can navigate to the edit route here if needed
+        } catch (error) {
+            console.error('Error editing appointment:', error);
+            alert('Failed to edit appointment');
+        }
+    };
+
+    const handleEditAppointmentSubmit = async (appointment: Appointment) => {
+        try {
             await updateAppointment(appointment);
-            const updatedAppointments = appointments.map((appt) =>
-                appt.id === appointment.id ? appointment : appt
-            );
-            setAppointments(updatedAppointments);
+            fetchAppointments();
             alert('Appointment updated successfully');
         } catch (error) {
             console.error('Error updating appointment:', error);
             alert('Failed to update appointment');
         }
+        console.log(appointment);
+
     };
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const appointmentId = urlParams.get('id');
+        if (appointmentId) {
+            fetchAppointment(appointmentId)
+                .then((appointment) => setEditingAppointment(appointment))
+                .catch((error) => console.error('Error fetching appointment:', error));
+        }
+        console.log(appointmentId);
+    }, []);
+
+    const fetchAppointment = async (id: string) => {
+        try {
+            const response = await editAppointments(id);
+            console.log(response);
+            return response;
+        } catch (error) {
+            console.error('Error fetching appointment:', error);
+            throw new Error('Failed to fetch appointment');
+        }
+    };
+
+
 
     const handleDeleteAppointment = async (id: string) => {
         if (window.confirm('Are you sure you want to delete this appointment?')) {
@@ -86,8 +126,9 @@ const SelectDoctor: FC = () => {
             {selectedDoctor ? (
                 <AppointmentForm
                     doctor={selectedDoctor}
-                    onSubmit={handleAppointmentSubmit}
+                    onSubmit={editingAppointment ? handleEditAppointmentSubmit : handleAppointmentSubmit}
                     fetchAppointments={fetchAppointments}
+                    editingAppointment={editingAppointment}
                 />
             ) : (
                 <div className="doctor-list p-10 bg-white border drop-shadow-lg">

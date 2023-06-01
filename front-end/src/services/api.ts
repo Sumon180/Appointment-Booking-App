@@ -12,22 +12,20 @@ export const getAppointments = async () => {
   }
 };
 
-export const editAppointments = async (appointmentId: string) => {
-  try {
-    const response = await axios.get(
-      `${API_BASE_URL}/appointments/${appointmentId}`
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error("Failed to Edit appointments");
-  }
-};
-
 export const createAppointment = async (data: Appointment) => {
   try {
     await axios.post(`${API_BASE_URL}/appointments`, data);
   } catch (error) {
     throw new Error("Failed to create appointment");
+  }
+};
+
+export const editAppointments = async (id: string) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/appointments/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to Edit appointments");
   }
 };
 

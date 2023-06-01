@@ -16,6 +16,7 @@ export interface AppointmentFormProps {
   doctor: Doctor;
   onSubmit: (data: Appointment) => void;
   fetchAppointments: () => void;
+  editingAppointment: Appointment | null;
 }
 
 export interface AppointmentListProps {
