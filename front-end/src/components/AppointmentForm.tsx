@@ -49,27 +49,29 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
         >
             <h2 className="text-2xl mb-5">Book Appointment with <span className='text-blue-600 font-bold'>{doctor.name}</span></h2>
             <form onSubmit={handleSubmit} className="flex flex-col">
-                <label>
-                    Your Name:<br />
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        className="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-                    />
+                <label className="text-lg font-medium text-slate-600">
+                    Your Name:
                 </label>
-                <label>
-                    Preferred Date:<br />
-                    <input
-                        type="date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        required
-                        className="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-                    />
+                <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                />
+
+                <label className="text-lg font-medium text-slate-600">
+                    Preferred Date:
                 </label>
-                <label htmlFor="time" className="text-lg font-medium">
+                <input
+                    type="date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    required
+                    className="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                />
+
+                <label htmlFor="time" className="text-lg font-medium text-slate-600">
                     Time
                 </label>
                 <input
