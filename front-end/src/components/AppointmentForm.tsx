@@ -1,7 +1,7 @@
 import React, { useState, FC } from 'react';
 import { motion } from "framer-motion"
 import { useNavigate } from 'react-router-dom';
-import { AppointmentFormProps } from '../types';
+import { Appointment, AppointmentFormProps } from '../types';
 
 
 
@@ -12,17 +12,23 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
 }) => {
     const [name, setName] = useState<string>('');
     const [date, setDate] = useState<string>('');
+    const [time, setTime] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            onSubmit({
-                doctor, name, date,
+            const appointment: Appointment = {
+                doctor,
+                name,
+                date,
+                time,
                 id: ''
-            });
+            };
+            onSubmit(appointment);
             setName('');
             setDate('');
+            setTime('');
             fetchAppointments();
         } catch (error) {
             console.error('Error creating appointment:', error);
@@ -63,6 +69,17 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
                         className="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
                     />
                 </label>
+                <label htmlFor="time" className="text-lg font-medium">
+                    Time
+                </label>
+                <input
+                    type="time"
+                    id="time"
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                    required
+                    className="py-2 px-3 border border-gray-300 rounded-md"
+                />
                 <button
                     type="submit"
                     className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5"

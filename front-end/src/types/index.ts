@@ -9,6 +9,7 @@ export interface Appointment {
   doctor: Doctor;
   name: string;
   date: string;
+  time: string;
 }
 
 export interface AppointmentFormProps {
