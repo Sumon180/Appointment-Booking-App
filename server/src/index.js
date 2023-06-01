@@ -35,12 +35,13 @@ app.get("/appointments", async (req, res) => {
 
 app.post("/appointments", async (req, res) => {
   try {
-    const { doctor, name, date } = req.body;
+    const { doctor, name, date, time } = req.body;
 
     const appointment = {
       doctor,
       name,
       date,
+      time,
     };
 
     const docRef = await db.collection("appointments").add(appointment);

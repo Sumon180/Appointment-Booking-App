@@ -29,8 +29,8 @@ const AppointmentList: React.FC<AppointmentListProps> = ({ appointments, onEditA
                         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Doctor Name</TableCell>
-                                    <TableCell align="right">Patient Name</TableCell>
+                                    <TableCell>Doctor</TableCell>
+                                    <TableCell align="right">Patient</TableCell>
                                     <TableCell align="right">Date</TableCell>
                                     <TableCell align="right">Time</TableCell>
                                     <TableCell align="right">Action</TableCell>

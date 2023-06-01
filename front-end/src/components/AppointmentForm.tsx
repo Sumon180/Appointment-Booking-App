@@ -12,18 +12,18 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
 }) => {
     const [name, setName] = useState<string>('');
     const [date, setDate] = useState<string>('');
-    const [time, setTime] = useState('');
+    const [time, setTime] = useState<string>('');
     const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
             const appointment: Appointment = {
+                id: '',
                 doctor,
                 name,
                 date,
-                time,
-                id: ''
+                time
             };
             onSubmit(appointment);
             setName('');
@@ -74,7 +74,6 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
                 </label>
                 <input
                     type="time"
-                    id="time"
                     value={time}
                     onChange={(e) => setTime(e.target.value)}
                     required
