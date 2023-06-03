@@ -1,6 +1,6 @@
 import { useState, FC, useEffect } from 'react';
 import { motion } from "framer-motion"
-import { createAppointment, deleteAppointment, editAppointments, getAppointments, updateAppointment } from '../services/api';
+import { createAppointment, deleteAppointment, editAppointments, getAppointments } from '../services/api';
 import DoctorCard from '../components/DoctorCard';
 import AppointmentForm from '../components/AppointmentForm';
 import AppointmentList from '../components/AppointmentList';
@@ -48,7 +48,7 @@ const SelectDoctor: FC = () => {
         { id: 4, name: 'Dr. Salman dd', specialty: 'Medicin' },
     ];
 
-    const handleEditAppointmentSubmit = async (appointment: Appointment) => {
+    const handleEditAppointmentSubmit = async () => {
         try {
             setSelectedDoctor(null);
             setEditingAppointment(null)
@@ -58,7 +58,7 @@ const SelectDoctor: FC = () => {
             console.error('Error updating appointment:', error);
             alert('Failed to update appointment');
         }
-        console.log(appointment);
+
     };
 
     const handleEditAppointment = async (appointment: Appointment) => {
@@ -125,7 +125,7 @@ const SelectDoctor: FC = () => {
                                     key={doctor.id}
                                     doctor={doctor}
                                     onBookAppointment={handleBookAppointment}
-                                    
+
 
                                 />
                             ))}
