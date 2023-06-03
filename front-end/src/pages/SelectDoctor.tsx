@@ -56,6 +56,7 @@ const SelectDoctor: FC = () => {
     const handleEditAppointment = async (appointment: Appointment) => {
         try {
             const editedAppointment = await fetchAppointment(appointment.id);
+            console.log(editedAppointment);
             setEditingAppointment(editedAppointment);
             // You can navigate to the edit route here if needed
         } catch (error) {
@@ -77,29 +78,26 @@ const SelectDoctor: FC = () => {
 
     };
 
-    useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const appointmentId = urlParams.get('id');
-        if (appointmentId) {
-            fetchAppointment(appointmentId)
-                .then((appointment) => setEditingAppointment(appointment))
-                .catch((error) => console.error('Error fetching appointment:', error));
-        }
-        console.log(appointmentId);
-    }, []);
+    // useEffect(() => {
+    //     const urlParams = new URLSearchParams(window.location.search);
+    //     const appointmentId = urlParams.get('id');
+    //     if (appointmentId) {
+    //         fetchAppointment(appointmentId)
+    //             .then((appointment) => setEditingAppointment(appointment))
+    //             .catch((error) => console.error('Error fetching appointment:', error));
+    //     }
+    //     console.log(appointmentId);
+    // }, []);
 
     const fetchAppointment = async (id: string) => {
         try {
             const response = await editAppointments(id);
-            console.log(response);
             return response;
         } catch (error) {
             console.error('Error fetching appointment:', error);
             throw new Error('Failed to fetch appointment');
         }
     };
-
-
 
     const handleDeleteAppointment = async (id: string) => {
         if (window.confirm('Are you sure you want to delete this appointment?')) {

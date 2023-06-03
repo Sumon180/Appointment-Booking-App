@@ -54,6 +54,27 @@ app.post("/appointments", async (req, res) => {
   }
 });
 
+app.get("/appointments/:id", async (req, res) => {
+  try {
+    const appointmentId = req.params.id;
+
+    const appointmentDoc = await db
+      .collection("appointments")
+      .doc(appointmentId)
+      .get();
+
+    if (!appointmentDoc.exists) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
+
+    const appointmentData = appointmentDoc.data();
+    res.json({ id: appointmentId, ...appointmentData });
+  } catch (error) {
+    console.error("Error fetching appointment:", error);
+    res.status(500).json({ error: "Failed to fetch appointment" });
+  }
+});
+
 // Update an appointment
 app.put("/appointments/:id", async (req, res) => {
   try {
@@ -71,6 +92,7 @@ app.put("/appointments/:id", async (req, res) => {
       doctor,
       name,
       date,
+      time,
     };
 
     await appointmentRef.update(updatedAppointment);
