@@ -20,7 +20,7 @@ export const createAppointment = async (data: Appointment) => {
   }
 };
 
-export const editAppointments = async (id: string) => {
+export const editAppointment = async (id: string) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/appointments/${id}`);
     return response.data;

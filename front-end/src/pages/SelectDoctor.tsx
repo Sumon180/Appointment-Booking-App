@@ -1,6 +1,6 @@
 import { useState, FC, useEffect } from 'react';
 import { motion } from "framer-motion"
-import { createAppointment, deleteAppointment, editAppointments, getAppointments } from '../services/api';
+import { createAppointment, deleteAppointment, editAppointment, getAppointments } from '../services/api';
 import DoctorCard from '../components/DoctorCard';
 import AppointmentForm from '../components/AppointmentForm';
 import AppointmentList from '../components/AppointmentList';
@@ -74,7 +74,7 @@ const SelectDoctor: FC = () => {
 
     const fetchAppointment = async (id: string) => {
         try {
-            const response = await editAppointments(id);
+            const response = await editAppointment(id);
             return response;
         } catch (error) {
             console.error('Error fetching appointment:', error);

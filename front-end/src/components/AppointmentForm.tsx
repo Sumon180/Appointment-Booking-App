@@ -34,6 +34,7 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
                     date,
                     time
                 });
+                setTimeout(() => navigate("/appointments"), 500);
             }
             const appointment: Appointment = {
                 id: '',
