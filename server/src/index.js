@@ -79,7 +79,7 @@ app.get("/appointments/:id", async (req, res) => {
 app.put("/appointments/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { doctor, name, date } = req.body;
+    const { doctor, name, date, time } = req.body;
 
     const appointmentRef = db.collection("appointments").doc(id);
     const snapshot = await appointmentRef.get();
