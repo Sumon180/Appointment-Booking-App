@@ -9,7 +9,6 @@ const AppointmentList: React.FC<AppointmentListProps> = ({ appointments, onEditA
 
     const handleEditAppointment = (appointment: Appointment) => {
         onEditAppointment(appointment);
-        alert("Now, Select a doctor")
     };
 
     const handleDeleteAppointment = (id: string) => {
@@ -55,7 +54,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({ appointments, onEditA
                                             </Link>
                                             <button
                                                 onClick={() => handleDeleteAppointment(appointment.id)}
-                                                className="ml-2 bg-red-500 text-white px-2 py-1 rounded"
+                                                className="ml-2 bg-rose-500 text-white px-2 py-1 rounded"
                                             >
                                                 Delete
                                             </button>

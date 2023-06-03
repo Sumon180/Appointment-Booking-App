@@ -48,26 +48,22 @@ const SelectDoctor: FC = () => {
         { id: 4, name: 'Dr. Salman dd', specialty: 'Medicin' },
     ];
 
-
-
-
     const handleEditAppointmentSubmit = async (appointment: Appointment) => {
         try {
-            await updateAppointment(appointment);
+            setSelectedDoctor(null);
+            setEditingAppointment(null)
             fetchAppointments();
-            alert('Appointment updated successfully FFF');
+            alert('Appointment updated successfully');
         } catch (error) {
             console.error('Error updating appointment:', error);
-            alert('Failed to update appointment FFF');
+            alert('Failed to update appointment');
         }
         console.log(appointment);
-
     };
 
     const handleEditAppointment = async (appointment: Appointment) => {
         try {
             const editedAppointment = await fetchAppointment(appointment.id);
-            console.log(editedAppointment);
             setEditingAppointment(editedAppointment);
             // You can navigate to the edit route here if needed
         } catch (error) {
@@ -75,17 +71,6 @@ const SelectDoctor: FC = () => {
             alert('Failed to edit appointment');
         }
     };
-
-    // useEffect(() => {
-    //     const urlParams = new URLSearchParams(window.location.search);
-    //     const appointmentId = urlParams.get('id');
-    //     if (appointmentId) {
-    //         fetchAppointment(appointmentId)
-    //             .then((appointment) => setEditingAppointment(appointment))
-    //             .catch((error) => console.error('Error fetching appointment:', error));
-    //     }
-    //     console.log(appointmentId);
-    // }, []);
 
     const fetchAppointment = async (id: string) => {
         try {
@@ -127,24 +112,32 @@ const SelectDoctor: FC = () => {
                     editingAppointment={editingAppointment}
                 />
             ) : (
-                <div className="doctor-list p-10 bg-white border drop-shadow-lg">
-                    <h2 className="text-2xl font-semi-bold mb-3 text-slate-700">{editingAppointment ? (<span className="text-animate" >Now, Select a doctor at first</span>) : "Choose a doctor:"}</h2>
-                    <div className='flex flex-wrap items-center gap-3'>
-                        {doctors.map((doctor) => (
-                            <DoctorCard
-                                key={doctor.id}
-                                doctor={doctor}
-                                onBookAppointment={handleBookAppointment}
-                            />
-                        ))}
+                <>
+                    <div className="doctor-list p-10 bg-white border drop-shadow-lg">
+                        <h2 className="text-2xl font-semi-bold mb-3 text-slate-700">
+                            {editingAppointment ? (
+                                <span className="text-animate text-rose-500">Now, Select a doctor</span>)
+                                : "Choose a doctor:"}
+                        </h2>
+                        <div className='flex flex-wrap items-center gap-3'>
+                            {doctors.map((doctor) => (
+                                <DoctorCard
+                                    key={doctor.id}
+                                    doctor={doctor}
+                                    onBookAppointment={handleBookAppointment}
+                                    
+
+                                />
+                            ))}
+                        </div>
                     </div>
-                </div>
+                    <AppointmentList
+                        appointments={appointments}
+                        onEditAppointment={handleEditAppointment}
+                        onDeleteAppointment={handleDeleteAppointment}
+                    />
+                </>
             )}
-            <AppointmentList
-                appointments={appointments}
-                onEditAppointment={handleEditAppointment}
-                onDeleteAppointment={handleDeleteAppointment}
-            />
         </motion.div>
     );
 };

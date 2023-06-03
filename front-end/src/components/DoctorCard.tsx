@@ -3,7 +3,7 @@ import { DoctorCardProps } from '../types';
 
 const DoctorCard: React.FC<DoctorCardProps> = ({ doctor, onBookAppointment }) => {
     return (
-        <div className="doctor-card bg-blue-500 p-4">
+        <div className={`doctor-card bg-blue-500 p-4 drop-shadow-lg`}>
             <h2 className="text-2xl text-white font-bold">{doctor.name}</h2>
             <p className="text-white mb-5">{doctor.specialty}</p>
             <button
