@@ -5,6 +5,7 @@ import DoctorCard from '../components/DoctorCard';
 import AppointmentForm from '../components/AppointmentForm';
 import AppointmentList from '../components/AppointmentList';
 import { Appointment, Doctor } from '../types';
+import { toast } from 'react-toastify';
 
 const SelectDoctor: FC = () => {
     const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
@@ -21,10 +22,10 @@ const SelectDoctor: FC = () => {
             setAppointments([...appointments, appointment]);
             setSelectedDoctor(null);
             fetchAppointments();
-            alert('Booked Successfully');
+            toast.success('Booked Successfully');
         } catch (error) {
             console.error('Error creating appointment:', error);
-            alert('Failed to book appointment');
+            toast.error('Failed to book appointment');
         }
     };
 
@@ -53,10 +54,10 @@ const SelectDoctor: FC = () => {
             setSelectedDoctor(null);
             setEditingAppointment(null)
             fetchAppointments();
-            alert('Appointment updated successfully');
+            toast.success('Appointment updated successfully');
         } catch (error) {
             console.error('Error updating appointment:', error);
-            alert('Failed to update appointment');
+            toast.error('Failed to update appointment');
         }
 
     };
@@ -68,7 +69,7 @@ const SelectDoctor: FC = () => {
             // You can navigate to the edit route here if needed
         } catch (error) {
             console.error('Error editing appointment:', error);
-            alert('Failed to edit appointment');
+            toast.error('Failed to edit appointment');
         }
     };
 
@@ -88,10 +89,10 @@ const SelectDoctor: FC = () => {
                 await deleteAppointment(id);
                 const updatedAppointments = appointments.filter((appt) => appt.id !== id);
                 setAppointments(updatedAppointments);
-                alert('Appointment deleted successfully');
+                toast.success('Appointment deleted successfully');
             } catch (error) {
                 console.error('Error deleting appointment:', error);
-                alert('Failed to delete appointment');
+                toast.error('Failed to delete appointment');
             }
         }
     };
