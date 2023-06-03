@@ -19,52 +19,50 @@ const AppointmentList: React.FC<AppointmentListProps> = ({ appointments, onEditA
         <div>
             <h2 className="text-3xl mb-5">Appointment List</h2>
             {appointments.length > 0 ? (
-                <ul>
-                    <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Doctor</TableCell>
-                                    <TableCell align="right">Patient</TableCell>
-                                    <TableCell align="right">Date</TableCell>
-                                    <TableCell align="right">Time</TableCell>
-                                    <TableCell align="right">Action</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {appointments.map((appointment) => (
-                                    <TableRow
-                                        key={uuidv4()}
-                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                    >
-                                        <TableCell component="th" scope="row">
-                                            {appointment.doctor.name}
-                                        </TableCell>
-                                        <TableCell align="right">{appointment.name}</TableCell>
-                                        <TableCell align="right">{appointment.date}</TableCell>
-                                        <TableCell align="right">{appointment.time}</TableCell>
-                                        <TableCell align="right">
-                                            <Link to={`/appointments/${appointment.id}`}>
-                                                <button
-                                                    onClick={() => handleEditAppointment(appointment)}
-                                                    className="ml-2 bg-blue-500 text-white px-2 py-1 rounded"
-                                                >
-                                                    Edit
-                                                </button>
-                                            </Link>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Doctor</TableCell>
+                                <TableCell align="right">Patient</TableCell>
+                                <TableCell align="right">Date</TableCell>
+                                <TableCell align="right">Time</TableCell>
+                                <TableCell align="right">Action</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {appointments.map((appointment) => (
+                                <TableRow
+                                    key={uuidv4()}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell component="th" scope="row">
+                                        {appointment.doctor.name}
+                                    </TableCell>
+                                    <TableCell align="right">{appointment.name}</TableCell>
+                                    <TableCell align="right">{appointment.date}</TableCell>
+                                    <TableCell align="right">{appointment.time}</TableCell>
+                                    <TableCell align="right">
+                                        <Link to={`/appointments/${appointment.id}`}>
                                             <button
-                                                onClick={() => handleDeleteAppointment(appointment.id)}
-                                                className="ml-2 bg-rose-500 text-white px-2 py-1 rounded"
+                                                onClick={() => handleEditAppointment(appointment)}
+                                                className="ml-2 bg-blue-500 text-white px-2 py-1 rounded"
                                             >
-                                                Delete
+                                                Edit
                                             </button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </ul>
+                                        </Link>
+                                        <button
+                                            onClick={() => handleDeleteAppointment(appointment.id)}
+                                            className="ml-2 bg-rose-500 text-white px-2 py-1 rounded"
+                                        >
+                                            Delete
+                                        </button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             ) : (
                 <p className='text-center text-red-500'>No appointments available.</p>
             )}
