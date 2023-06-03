@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text-animate {
+  animation: myAnimation 1s ease-in-out infinite;
+}
+
+@keyframes myAnimation {
+  0% {
+    /* Initial state */
+    opacity: 0;
+  }
+  50% {
+    /* Mid-state */
+    opacity: 1;
+  }
+  100% {
+    /* Final state */
+    opacity: 0;
+  }
+}

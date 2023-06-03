@@ -51,7 +51,18 @@ const SelectDoctor: FC = () => {
 
 
 
+    const handleEditAppointmentSubmit = async (appointment: Appointment) => {
+        try {
+            await updateAppointment(appointment);
+            fetchAppointments();
+            alert('Appointment updated successfully FFF');
+        } catch (error) {
+            console.error('Error updating appointment:', error);
+            alert('Failed to update appointment FFF');
+        }
+        console.log(appointment);
 
+    };
 
     const handleEditAppointment = async (appointment: Appointment) => {
         try {
@@ -63,19 +74,6 @@ const SelectDoctor: FC = () => {
             console.error('Error editing appointment:', error);
             alert('Failed to edit appointment');
         }
-    };
-
-    const handleEditAppointmentSubmit = async (appointment: Appointment) => {
-        try {
-            await updateAppointment(appointment);
-            fetchAppointments();
-            alert('Appointment updated successfully');
-        } catch (error) {
-            console.error('Error updating appointment:', error);
-            alert('Failed to update appointment');
-        }
-        console.log(appointment);
-
     };
 
     // useEffect(() => {
@@ -123,14 +121,14 @@ const SelectDoctor: FC = () => {
             <h1 className="text-5xl font-bold text-slate-800">Doctor Booking Appointment</h1>
             {selectedDoctor ? (
                 <AppointmentForm
-                    doctor={selectedDoctor }
+                    doctor={selectedDoctor}
                     onSubmit={editingAppointment ? handleEditAppointmentSubmit : handleAppointmentSubmit}
                     fetchAppointments={fetchAppointments}
                     editingAppointment={editingAppointment}
                 />
             ) : (
                 <div className="doctor-list p-10 bg-white border drop-shadow-lg">
-                    <h2 className="text-2xl font-semi-bold mb-3 text-slate-700">Choose a doctor:</h2>
+                    <h2 className="text-2xl font-semi-bold mb-3 text-slate-700">{editingAppointment ? (<span className="text-animate" >Now, Select a doctor at first</span>) : "Choose a doctor:"}</h2>
                     <div className='flex flex-wrap items-center gap-3'>
                         {doctors.map((doctor) => (
                             <DoctorCard

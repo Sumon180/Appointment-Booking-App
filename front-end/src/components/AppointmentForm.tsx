@@ -34,7 +34,6 @@ const AppointmentForm: FC<AppointmentFormProps> = ({
                     date,
                     time
                 });
-                alert('Appointment updated successfully');
             }
             const appointment: Appointment = {
                 id: '',
