@@ -2,12 +2,14 @@ import * as React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { Appointment, AppointmentListProps } from '../types';
+import { Link } from 'react-router-dom';
 
 const AppointmentList: React.FC<AppointmentListProps> = ({ appointments, onEditAppointment,
     onDeleteAppointment, }) => {
 
     const handleEditAppointment = (appointment: Appointment) => {
         onEditAppointment(appointment);
+        alert("Now, Select a doctor")
     };
 
     const handleDeleteAppointment = (id: string) => {
@@ -43,12 +45,14 @@ const AppointmentList: React.FC<AppointmentListProps> = ({ appointments, onEditA
                                         <TableCell align="right">{appointment.date}</TableCell>
                                         <TableCell align="right">{appointment.time}</TableCell>
                                         <TableCell align="right">
-                                            <button
-                                                onClick={() => handleEditAppointment(appointment)}
-                                                className="ml-2 bg-blue-500 text-white px-2 py-1 rounded"
-                                            >
-                                                Edit
-                                            </button>
+                                            <Link to={`/appointments/${appointment.id}`}>
+                                                <button
+                                                    onClick={() => handleEditAppointment(appointment)}
+                                                    className="ml-2 bg-blue-500 text-white px-2 py-1 rounded"
+                                                >
+                                                    Edit
+                                                </button>
+                                            </Link>
                                             <button
                                                 onClick={() => handleDeleteAppointment(appointment.id)}
                                                 className="ml-2 bg-red-500 text-white px-2 py-1 rounded"

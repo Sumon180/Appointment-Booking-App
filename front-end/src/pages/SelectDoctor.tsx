@@ -123,7 +123,7 @@ const SelectDoctor: FC = () => {
             <h1 className="text-5xl font-bold text-slate-800">Doctor Booking Appointment</h1>
             {selectedDoctor ? (
                 <AppointmentForm
-                    doctor={selectedDoctor}
+                    doctor={selectedDoctor }
                     onSubmit={editingAppointment ? handleEditAppointmentSubmit : handleAppointmentSubmit}
                     fetchAppointments={fetchAppointments}
                     editingAppointment={editingAppointment}
