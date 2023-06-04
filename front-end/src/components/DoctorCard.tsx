@@ -7,7 +7,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ doctor, onBookAppointment }) =>
             <h2 className="text-2xl text-white font-bold">{doctor.name}</h2>
             <p className="text-white mb-5">{doctor.specialty}</p>
             <button
-                className="bg-green-500 text-white px-4 py-2 rounded hover:scale-x-110 transition-all duration-200"
+                className="bg-green-500 text-white hover:text-slate-800 px-4 py-2 rounded hover:scale-x-110 transition-all duration-200"
                 onClick={() => onBookAppointment(doctor)}
             >
                 Book Appointment
