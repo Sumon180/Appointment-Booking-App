@@ -114,7 +114,7 @@ const SelectDoctor: FC = () => {
                 />
             ) : (
                 <>
-                    <div className="doctor-list p-10 bg-white border drop-shadow-lg">
+                    <div className="doctor-list p-10 bg-white decoration-purple-500 drop-shadow-lg">
                         <h2 className="text-2xl font-semi-bold mb-3 text-slate-700">
                             {editingAppointment ? (
                                 <span className="text-animate text-rose-500">Now, Select a doctor</span>)
