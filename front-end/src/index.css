@@ -2,6 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+.Loading {
+  position: relative;
+  color: #333;
+  font-size: 4em;
+  letter-spacing: 5px;
+  border-bottom: 16px solid #333;
+  font-family: "Courier New", Courier, monospace;
+  text-transform: uppercase;
+}
+.Loading::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: dodgerblue;
+  border-bottom: 16px solid dodgerblue;
+  animation: lod 2s linear infinite;
+  overflow: hidden;
+}
+
+@keyframes lod {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
 .text-animate {
   animation: myAnimation 1s ease-in-out infinite;
 }

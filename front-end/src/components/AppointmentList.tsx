@@ -28,7 +28,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({ appointments, onEditA
         <div>
             <h2 className="text-3xl mb-5">Appointment List</h2>
             {isLoading ? (
-                <p className='text-center'>Data Loading...</p>
+                <p className='Loading text-center' data-text="Loading...">Loading...</p>
             ) :
                 appointments.length > 0 ? (
                     <TableContainer component={Paper}>
